@@ -36,9 +36,9 @@ class NonBlockingFilterMeltdownTests {
                 .expectStatus().isOk();
     }
 
-    @DisplayName("Blocking Filter 거친 API 호출 (filter sleep 1000)")
+    @DisplayName("Non Blocking Filter 거친 API 호출 NonBlockingGatewayFilterFactory")
     @Test
-    void blockFilterTest() {
+    void nonBlockFilterTest() {
         webTestClient.get().uri("/non-block-filter")
                 .header(HttpHeaders.AUTHORIZATION, "123")
                 .exchange()

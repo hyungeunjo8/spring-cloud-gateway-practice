@@ -36,7 +36,7 @@ class BlockingFilterMeltdownTests {
                 .expectStatus().isOk();
     }
 
-    @DisplayName("Blocking Filter 거친 API 호출 (filter sleep 1000)")
+    @DisplayName("Blocking Filter 거친 API 호출, BlockingGatewayFilterFactory")
     @Test
     void blockFilterTest() {
         webTestClient.get().uri("/block-filter")
