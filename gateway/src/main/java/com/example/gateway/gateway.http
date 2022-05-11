@@ -1,0 +1,10 @@
+### 401
+GET http://localhost:8080/contents
+
+### 200 OK contents
+GET http://localhost:8080/contents
+Authorization: 123
+
+### 200 OK reviews
+GET http://localhost:8080/reviews
+Authorization: 123
