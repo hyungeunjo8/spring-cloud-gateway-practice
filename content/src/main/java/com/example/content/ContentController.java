@@ -11,18 +11,27 @@ import reactor.core.publisher.Mono;
 public class ContentController {
 
     @GetMapping("/contents")
-    Mono<String> getHelloWorld() {
+    String getHelloWorld() {
         log.info("hello~~contents!!!!!");
-        return Mono.just("Hello World By Content");
+        return "Hello World By Content";
     }
 
-    @GetMapping("/contents/sleep")
-    Mono<String> sleep() {
+    @GetMapping("/contents/slow")
+    Mono<String> slow() {
+        return Mono.fromSupplier(this::blockingFunction);
+    }
+
+    private String blockingFunction() {
         try {
             Thread.sleep(10000L);
-            return Mono.just("OK");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        return "OK";
+    }
+
+    @GetMapping("/block-filter")
+    Mono<String> block() {
+        return Mono.just("OK");
     }
 }

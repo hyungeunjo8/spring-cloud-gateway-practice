@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-public class GatewayConfig {
+public class GatewayRouteConfig {
 
     @Bean
-    public RouteLocator routeLocator(RouteLocatorBuilder builder, AuthenticationGatewayFilterFactory authenticationGatewayFilterFactory) {
+    public RouteLocator routeLocator(RouteLocatorBuilder builder, AuthenticationGatewayFilterFactory authenticationGatewayFilterFactory, BlockingGatewayFilterFactory blockingGatewayFilterFactory) {
         return builder.routes()
                 .route("content route", r -> r
                         .path("/contents/**")
@@ -22,6 +22,11 @@ public class GatewayConfig {
                         .path("/reviews/**")
                         .filters(f -> f.filter(authenticationGatewayFilterFactory.apply(new AuthenticationFilterConfig("review config"))))
                         .uri("http://localhost:9999")
+                )
+                .route("blocking filter content route", r -> r
+                        .path("/block-filter/**")
+                        .filters(f -> f.filter(blockingGatewayFilterFactory.apply("")))
+                        .uri("http://localhost:7777")
                 )
                 .build();
     }
