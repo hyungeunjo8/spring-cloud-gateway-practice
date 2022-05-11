@@ -15,4 +15,14 @@ public class ContentController {
         log.info("hello~~contents!!!!!");
         return Mono.just("Hello World By Content");
     }
+
+    @GetMapping("/contents/sleep")
+    Mono<String> sleep() {
+        try {
+            Thread.sleep(10000L);
+            return Mono.just("OK");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
