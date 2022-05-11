@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class GatewayRouteConfig {
 
     @Bean
-    public RouteLocator routeLocator(RouteLocatorBuilder builder, AuthenticationGatewayFilterFactory authenticationGatewayFilterFactory, BlockingGatewayFilterFactory blockingGatewayFilterFactory) {
+    public RouteLocator routeLocator(RouteLocatorBuilder builder,
+                                     AuthenticationGatewayFilterFactory authenticationGatewayFilterFactory,
+                                     BlockingGatewayFilterFactory blockingGatewayFilterFactory,
+                                     NonBlockingGatewayFilterFactory nonBlockingGatewayFilterFactory) {
         return builder.routes()
                 .route("content route", r -> r
                         .path("/contents/**")
@@ -26,6 +29,11 @@ public class GatewayRouteConfig {
                 .route("blocking filter content route", r -> r
                         .path("/block-filter/**")
                         .filters(f -> f.filter(blockingGatewayFilterFactory.apply("")))
+                        .uri("http://localhost:7777")
+                )
+                .route("non blocking filter content route", r -> r
+                        .path("/non-block-filter/**")
+                        .filters(f -> f.filter(nonBlockingGatewayFilterFactory.apply("")))
                         .uri("http://localhost:7777")
                 )
                 .build();

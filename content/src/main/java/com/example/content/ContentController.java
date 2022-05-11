@@ -34,4 +34,9 @@ public class ContentController {
     Mono<String> block() {
         return Mono.just("OK");
     }
+
+    @GetMapping("/non-block-filter")
+    Mono<String> nonBlock() {
+        return Mono.just("OK");
+    }
 }
